@@ -1,4 +1,15 @@
 import React, { useState } from "react";
+import {
+  Form,
+  InputWrapper,
+  Label,
+  LoginWrapper,
+  Input,
+  Span,
+  FormField,
+  Button,
+  ButtonWrapper,
+} from "./Login-styled-components";
 
 interface Props {
   history: {
@@ -28,9 +39,13 @@ export const Login: React.FC<Props> = (props: Props) => {
   const runValidation = (): void => {
     if (username.length === 0) {
       errors.username = "username can't be empty";
+    } else if (username.length < 4) {
+      errors.username = "username should must have atleast 4 characters";
     }
     if (password.length === 0) {
       errors.password = "password can't be empty";
+    } else if (password.length < 8) {
+      errors.password = "password should must have atleast 8 characters";
     }
   };
 
@@ -39,27 +54,44 @@ export const Login: React.FC<Props> = (props: Props) => {
     runValidation();
     if (Object.keys(errors).length === 0) {
       setLoginError({});
-      props.history.push(`/Todos/${username}`);
+      props.history.push(`/todo/${username}`);
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
     } else {
       setLoginError(errors);
     }
-    // console.log("form Data", username, password);
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
-          <input type="text" value={username} onChange={handleUsername} />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" value={password} onChange={handlePassword} />
-        </div>
-        <div>
-          <button type="submit">Login</button>
-        </div>
-      </form>
-    </div>
+    <LoginWrapper>
+      <Form onSubmit={handleSubmit}>
+        <InputWrapper>
+          <FormField>
+            <Label>Username</Label>
+            <Input
+              type="text"
+              value={username}
+              onChange={handleUsername}
+              name={loginError.username}
+            />
+          </FormField>
+          <div>{loginError.username && <Span>{loginError.username}</Span>}</div>
+        </InputWrapper>
+        <InputWrapper>
+          <FormField>
+            <Label>Password</Label>
+            <Input
+              type="password"
+              value={password}
+              onChange={handlePassword}
+              name={loginError.password}
+            />
+          </FormField>
+          <div>{loginError.password && <Span>{loginError.password}</Span>}</div>
+        </InputWrapper>
+        <ButtonWrapper>
+          <Button type="submit">Login</Button>
+        </ButtonWrapper>
+      </Form>
+    </LoginWrapper>
   );
 };
