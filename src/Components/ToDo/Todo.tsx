@@ -113,17 +113,19 @@ export const Todo: React.FC<Props> = (props: Props) => {
           </TodoForm>
         </form>
       </FormContainer>
-      <TodoList>
-        {todoList.map((ele, i) => {
-          return (
-            <List key={i}>
-              <p>{i + 1}</p>
-              <p onDoubleClick={() => handleDelete(ele.title)}>{ele.title}</p>
-              <p>{ele.date}</p>
-            </List>
-          );
-        })}
-      </TodoList>
+      {todoList.length > 0 && (
+        <TodoList>
+          {todoList.map((ele, i) => {
+            return (
+              <List key={i}>
+                <p>{i + 1}</p>
+                <p onDoubleClick={() => handleDelete(ele.title)}>{ele.title}</p>
+                <p>{ele.date}</p>
+              </List>
+            );
+          })}
+        </TodoList>
+      )}
     </Container>
   );
 };

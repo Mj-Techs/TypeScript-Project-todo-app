@@ -64,6 +64,7 @@ export const AddButton = styled.button`
 `;
 
 export const TodoList = styled.div`
+  margin: 10px;
   border: 1px solid #aaa;
   border-radius: 10px;
   display: grid;
@@ -75,7 +76,7 @@ export const TodoList = styled.div`
 
 export const List = styled.div`
   display: grid;
-  grid-template: 0.1fr/0.015fr 1fr 0.1fr;
+  grid-template: 1fr/0.015fr 1fr 0.1fr;
   border: 1px solid;
   height: 30px;
   padding-left: 10px;
